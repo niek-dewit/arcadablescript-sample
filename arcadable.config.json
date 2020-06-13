@@ -1,0 +1,16 @@
+{
+    "project": {
+        "name": "Test",
+        "version": "0.0.1",
+        "main": "/src/main.arc",
+        "export": "/out"
+    },
+    "system": {
+        "screenWidth": 42,
+        "screenHeight": 42,
+        "mainsPerSecond": 240,
+        "rendersPerSecond": 60,
+        "digitalInputAmount": 16,
+        "analogInputAmount": 8
+    }
+}
