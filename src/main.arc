@@ -19,6 +19,7 @@ render: Function {
 
 screenWidthMin1: Eval = static screenWidth - 1;
 analog0: Analog = 0;
+
 pixelsPerAnalog: Eval = static screenWidthMin1 / 1023;
 pixelPos: Eval = pixelsPerAnalog * analog0;
 
