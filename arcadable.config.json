@@ -8,7 +8,7 @@
     "system": {
         "screenWidth": 42,
         "screenHeight": 42,
-        "mainsPerSecond": 240,
+        "mainsPerSecond": 180,
         "rendersPerSecond": 60,
         "digitalInputAmount": 16,
         "analogInputAmount": 8
