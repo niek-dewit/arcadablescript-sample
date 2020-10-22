@@ -65,13 +65,13 @@ setCurrentPlayerPosition: Function {
     }
     if (setPlayerNumber == 2) {
         setPlayerPosition = player3PosInput * pixelsPerAnalog;
-        checkLeftOffset = 0;
-        checkRightOffset = 1;
+        checkLeftOffset = -1;
+        checkRightOffset = 0;
     }
     if (setPlayerNumber == 3) {
         setPlayerPosition = player4PosInput * pixelsPerAnalog;
-        checkLeftOffset = 0;
-        checkRightOffset = 1;
+        checkLeftOffset = -1;
+        checkRightOffset = 0;
     }    
 }
 

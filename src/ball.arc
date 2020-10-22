@@ -14,6 +14,9 @@ ballY: Number = 5;
 ballH: Number = 0.1;
 ballV: Number = 0.1;
 
+ballXMirrored: Eval = screenWidth - ballX;
+ballYMirrored: Eval = screenHeight - ballY;
+
 ballHSquared: Eval = ballH pow 2;
 ballVSquared: Eval = ballV pow 2;
 ballHSquaredPlusballVSquared: Eval = ballHSquared + ballVSquared;
@@ -69,91 +72,99 @@ stepBall: Function {
     ballX = ballX + ballH;
     ballY = ballY + ballV;
     ballCollides = 0;
-    if(ballX >= screenWidthMin3) {
-        if(player2Lives > 0) {
-            setPlayerNumber = 1;
-            execute(setCurrentPlayerPosition);
-            ballPosition = ballY;
-            execute(doesBallCollide);
-            if(ballCollides == 1) {
-                ballH = hitBallHNegative;
-                ballV = ballV - ballDeflection;
+    if(ballH > 0) {
+        if(ballX >= screenWidthMin3) {
+            if(player2Lives > 0) {
+                setPlayerNumber = 1;
+                execute(setCurrentPlayerPosition);
+                ballPosition = ballY;
+                execute(doesBallCollide);
+                if(ballCollides == 1) {
+                    ballH = hitBallHNegative;
+                    ballV = ballV - ballDeflection;
+                }
+            }
+        }
+        if(ballX >= screenWidthMin1) {
+            if(player2Lives == 0) {
+                ballH = ballHNegative;
+            } else {
+                if(ballX >= screenWidth) {
+                    player2Lives = player2Lives - 1;
+                    execute(scored);
+                }
             }
         }
     }
-    if(ballX >= screenWidthMin1) {
-        if(player2Lives == 0) {
-            ballH = ballHNegative;
-        } else {
-            if(ballX >= screenWidth) {
-                player2Lives = player2Lives - 1;
-                execute(scored);
+    if (ballH < 0) {
+        if(ballX <= 3) {
+            if(player4Lives > 0) {
+                setPlayerNumber = 3;
+                execute(setCurrentPlayerPosition);
+                ballPosition = ballYMirrored;
+                execute(doesBallCollide);
+                if(ballCollides == 1) {
+                    ballH = hitBallHPositive;
+                    ballV = ballV + ballDeflection;
+                }
+            }
+        }
+        if(ballX <= 1) {
+            if(player4Lives == 0) {
+                ballH = ballHPositive;
+            } else {
+                if(ballX <= 0) {
+                    player4Lives = player4Lives - 1;
+                    execute(scored);
+                }
             }
         }
     }
-    if(ballX <= 3) {
-        if(player4Lives > 0) {
-            setPlayerNumber = 3;
-            execute(setCurrentPlayerPosition);
-            ballPosition = ballY;
-            execute(doesBallCollide);
-            if(ballCollides == 1) {
-                ballH = hitBallHPositive;
-                ballV = ballV + ballDeflection;
+    if (ballV > 0) {
+        if(ballY >= screenHeightMin3) {
+            if(player3Lives > 0) {
+                setPlayerNumber = 2;
+                execute(setCurrentPlayerPosition);
+                ballPosition = ballXMirrored;
+                execute(doesBallCollide);
+                if(ballCollides == 1) {
+                    ballV = hitBallVNegative;
+                    ballH = ballH + ballDeflection;
+                }
+            }
+        }
+        if (ballY >= screenHeightMin1) {
+            if (player3Lives == 0) {
+                ballV = ballVNegative;
+            } else {
+                if(ballY >= screenHeight) {
+                    player3Lives = player3Lives - 1;
+                    execute(scored);
+                }
             }
         }
     }
-    if(ballX <= 1) {
-        if(player4Lives == 0) {
-            ballH = ballHPositive;
-        } else {
-            if(ballX <= 0) {
-                player4Lives = player4Lives - 1;
-                execute(scored);
-            }
+    if (ballV < 0) {
+        if(ballY <= 3) {
+            if(player1Lives > 0) {
+                setPlayerNumber = 0;
+                execute(setCurrentPlayerPosition);
+                ballPosition = ballX;
+                execute(doesBallCollide);
+                if(ballCollides == 1) {
+                    ballV = hitBallVPositive;
+                    ballH = ballH - ballDeflection;
+                }
+            }        
         }
-    }
-    if(ballY >= screenHeightMin3) {
-        if(player3Lives > 0) {
-            setPlayerNumber = 2;
-            execute(setCurrentPlayerPosition);
-            ballPosition = ballX;
-            execute(doesBallCollide);
-            if(ballCollides == 1) {
-                ballV = hitBallVNegative;
-                ballH = ballH + ballDeflection;
-            }
-        }
-    }
-    if (ballY >= screenHeightMin1) {
-        if (player3Lives == 0) {
-            ballV = ballVNegative;
-        } else {
-            if(ballY >= screenHeight) {
-                player3Lives = player3Lives - 1;
-                execute(scored);
-            }
-        }
-    }
-    if(ballY <= 3) {
-        if(player1Lives > 0) {
-            setPlayerNumber = 0;
-            execute(setCurrentPlayerPosition);
-            ballPosition = ballX;
-            execute(doesBallCollide);
-            if(ballCollides == 1) {
-                ballV = hitBallVPositive;
-                ballH = ballH - ballDeflection;
-            }
-        }        
-    }
-    if (ballY <= 1) {
-        if (player1Lives == 0) {
-            ballV = ballVPositive;
-        } else {
-            if(ballY <= 0) {
-                player1Lives = player1Lives - 1;
-                execute(scored);
+        if (ballY <= 1) {
+            if (player1Lives == 0) {
+                ballV = ballVPositive;
+            } else {
+                if(ballY <= 0) {
+                    player1Lives = player1Lives - 1;
+                    execute(scored);
+                }
             }
         }
     }

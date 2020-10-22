@@ -33,7 +33,9 @@ main: Function {
 }
 
 render: Function {
+
     draw.clear;
+
     if(inMenu == 0) {
         execute(drawGame);
     } else {

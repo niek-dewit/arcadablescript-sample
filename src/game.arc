@@ -17,9 +17,9 @@ player4Continue: Number = 0;
 running: Number = 0;
 
 currentMillis: Config = CurrentMillis;
-randomWeird: Eval = currentMillis % 33; 
-random1: Eval = currentMillis % 2;
-random2: Eval = randomWeird % 2;
+startDirection: Number = 0;
+lastStartDirection: Number = 0;
+startDirectionModulo4: Eval = startDirection % 4;
 
 stepGame: Function {
     
@@ -77,6 +77,7 @@ notRunningGameStep: Function {
         if(player2Continue == 1) {
             if(player3Continue == 1) {
                 if(player4Continue == 1) {
+                    startDirection = currentMillis;
                     execute(startRunning);
                 }
             }
@@ -85,67 +86,50 @@ notRunningGameStep: Function {
 }
 
 startRunning: Function {
-    running = 1;
-    if(random1 == 0) {
-        if(random2 == 0) {
-            if(player2Lives > 0) {
-                ballH = ballStartSpeed;
-            } else {
-                if(player4Lives > 0) {
-                    ballH = ballStartSpeedNegative;
-                } else {
-                    if(player3Lives > 0) {
-                        ballV = ballStartSpeed;
-                    } else {
-                        ballV = ballStartSpeedNegative;
-                    }
-                }
-            }
-        } else {
-            if(player4Lives > 0) {
-                ballH = ballStartSpeedNegative;
-            } else {
-                if(player2Lives > 0) {
-                    ballH = ballStartSpeed;
-                } else {
-                    if(player1Lives > 0) {
-                        ballV = ballStartSpeedNegative;
-                    } else {
-                        ballV = ballStartSpeed;
-                    }
-                }
-            }
-        }
+    if(startDirectionModulo4 == lastStartDirection) {
+        startDirection = startDirection + 1;
+        execute(startRunning);
     } else {
-        if(random2 == 0) {
-            if(player3Lives > 0) {
-                ballV = ballStartSpeed;
-            } else {
-                if(player1Lives > 0) {
-                    ballV = ballStartSpeedNegative;
-                } else {
-                    if(player2Lives > 0) {
-                        ballH = ballStartSpeed;
-                    } else {
-                        ballH = ballStartSpeedNegative;
-                    }
-                }
-            }
-        } else {
+        if(startDirectionModulo4 == 0) {
             if(player1Lives > 0) {
                 ballV = ballStartSpeedNegative;
+                running = 1;
             } else {
-                if(player3Lives > 0) {
-                    ballV = ballStartSpeed;
+                startDirection = startDirection + 1;
+                execute(startRunning);
+            }
+        } else {
+            if(startDirectionModulo4 == 1) {
+                if(player2Lives > 0) {
+                    ballH = ballStartSpeed;
+                    running = 1;
                 } else {
-                    if(player4Lives > 0) {
-                        ballH = ballStartSpeedNegative;
+                    startDirection = startDirection + 1;
+                    execute(startRunning);
+                }
+            } else {
+                if(startDirectionModulo4 == 2) {
+                    if(player3Lives > 0) {
+                        ballV = ballStartSpeed;
+                        running = 1;
                     } else {
-                        ballH = ballStartSpeed;
+                        startDirection = startDirection + 1;
+                        execute(startRunning);
+                    }
+                } else {
+                    if(startDirectionModulo4 == 3) {
+                        if(player4Lives > 0) {
+                            ballH = ballStartSpeedNegative;
+                            running = 1;
+                        } else {
+                            startDirection = startDirection + 1;
+                            execute(startRunning);
+                        }
                     }
                 }
             }
         }
+        lastStartDirection = startDirectionModulo4;
     }
 }
 runningGameStep: Function {

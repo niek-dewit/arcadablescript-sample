@@ -102,6 +102,7 @@ drawMenu: Function {
         if(millisUntilStart < 0) {
             inMenu = 0;
             execute(resetGame);
+
             if(player1Joined == 0) {
                 player1Lives = 0;
             }
