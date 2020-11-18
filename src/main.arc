@@ -24,18 +24,41 @@ player4SecondaryColor: Number = 1703952;
 inMenu: Number = 1;
 millisAtWin: Number = -1;
 timeSinceWin: Eval = currentMillis - millisAtWin;
+pikaWidth: Number = 20;
+pikaHeight: Number = 20;
+pikaX: Number = 10;
+pikaY: Number = 0;
+//pika: Image = ['assets/pika.data', pikaWidth, pikaHeight, 7434609];
+pikaMaxX: Eval = static screenWidth - pikaWidth;
+pikaMaxY: Eval = static screenHeight - pikaHeight;
+pikaH: Number = 0.01;
+pikaV: Number = 0.01;
 
 main: Function {
 
     if(inMenu == 0) {
         execute(stepGame);
     }
+
+   // pikaX = pikaX + pikaH;
+   // pikaY = pikaY + pikaV;
+   // if(pikaX > pikaMaxX) {
+    //    pikaH = -0.04;
+   // }
+   // if(pikaX < 0) {
+    //    pikaH = 0.04;
+   // }
+   // if(pikaY > pikaMaxY) {
+    //    pikaV = -0.04;
+   // }
+   // if(pikaY < 0) {
+   //     pikaV = 0.04;
+   // }
 }
 
 render: Function {
 
     draw.clear;
-
     if(inMenu == 0) {
         execute(drawGame);
     } else {
@@ -67,4 +90,6 @@ render: Function {
             }
         }
     }
+    draw.setRotation(0);
+    //draw.drawImage(pikaX, pikaY, pika);
 }
